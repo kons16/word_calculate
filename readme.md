@@ -6,7 +6,7 @@
 ## 使い方
 Python用WebフレームワークであるFlaskが導入されている環境で,  
 `main.py`を実行し, ブラウザ上でURLを開いてください.  
-URLはssh先サーバーで実行している場合, `http://{ssh先のip address}:{ポート番号}`になります.
+URLはssh先サーバーで実行している場合, `http://{ssh先のip address}:{ポート番号}`になります.  
 ローカルの場合は, `http://0.0.0.0:{ポート番号}`です.  
 
 単語の分散表現を得るために`main.py`の`model_path`をword2vecのモデルが置いてある  
