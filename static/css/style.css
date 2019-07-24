@@ -1,0 +1,128 @@
+#center_body {
+  text-align: center;
+}
+
+#user_input_box {
+  display: inline-flex;
+}
+
+#input_box {
+  padding: 0 10px;
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 950px;
+  height: 100px;
+  font-family: 'ヒラギノ丸ゴ ProN','Hiragino Maru Gothic ProN',sans-serif;
+  font-size: 50px;
+  font-weight: bold;
+  border-radius: 10px;
+  border: solid 3px #52A8B8;
+}
+
+#equlbtn {
+  margin-top: 10px;
+  margin-left: 20px;
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  background: blue;
+  color: #fff;
+  font-weight: bold;
+  font-size: 80px;
+  border: none;
+}
+
+#all_word {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+#all_word_input {
+  padding: 10px 10px 10px 10px;
+  margin: 0 10px 0 10px;
+  font-weight: bold;
+  color: #FFF;
+  background: #6091d3;
+  border: solid 3px #6091d3;
+  border-radius: 10px;
+}
+
+#all_word_ope_input {
+  font-weight: bold;
+  font-size: 40px;
+  color: #6091d3;
+}
+
+#answer {
+  font-size: 30px;
+  padding: 15px 10px 10px 15px;
+  margin-top: 30px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 1000px;
+  border-radius: 8px;
+  background: #e6f0ee;
+  border-radius: 10px;
+}
+
+#kekka_wait {
+  margin-top: 200px;
+  font-size: 60px;
+  color: blue;
+  font-weight: bold;
+}
+
+/* 結果の名前 */
+.col-1 {
+  font-size: 45px;
+  color: #ff991c;
+  font-weight: bold;
+  display: inline-block;
+  width: 600px;
+}
+
+/* 結果の確率 */
+.col-2 {
+  display: inline-block;
+  width: 350px;
+}
+
+
+/* 類似単語の表示ページ */
+#input_similar_box {
+  padding: 0 10px;
+  margin-top: 10px;
+  margin-left: 140px;
+  text-align: center;
+  width: 600px;
+  height: 100px;
+  font-family: 'ヒラギノ丸ゴ ProN','Hiragino Maru Gothic ProN',sans-serif;
+  font-size: 50px;
+  font-weight: bold;
+  border-radius: 10px;
+  border: solid 3px #52A8B8; 
+}
+
+#goSimilarBtn {
+  margin-top: 40px;
+  margin-left: 20px;
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  background: blue;
+  color: #fff;
+  font-weight: bold;
+  font-size: 30px;
+  border: none; 
+}
+
+#link_to_why_calc{
+  color: orange;
+}
+
+
+/* 単語計算説明ページ */
+#why_calc_body {
+  background-color: #DCECF3;
+}
+

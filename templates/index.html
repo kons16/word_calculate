@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>単語の足し算・引き算</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        // = を押す前はanswerの枠組みを非表示にしておく
+        window.onload = function(){
+            document.getElementById('answer').style.display="none";
+            document.getElementById('why_box').style.display="none";
+        }
+
+        // イコールをクリックしたときの関数 
+        function Equal(calc_num){
+            var all_word = document.getElementById('all_word');
+            var input_word = document.getElementById('input_box').value;
+            document.getElementById('answer').style.display="none";
+            document.getElementById('why_box').style.display="none";
+            document.getElementById('kekka_wait').style.display="block";
+            document.getElementById('kekka_wait').innerHTML = "計算中...";
+            // document.inputform.reset();
+
+            if(calc_num == 1){
+                all_word.innerHTML = input_word + " = ";
+                var fData = new FormData();
+                var data = all_word.innerHTML;
+                fData.append('sentense', data);
+                // 過去の結果の削除
+                document.getElementById('answer').innerHTML = "";
+                // all_wordを単語のみdivで囲む
+                all_word.innerHTML = "";
+                input_word = input_word.split(" ");     // ["イチロー", "-", "サッカー"]
+                for(var i=0; i<input_word.length; i++){
+                    if(i % 2 == 0){
+                        all_word.innerHTML += "<span id='all_word_input'>" + input_word[i] + "</span>";
+                    }else{
+                        all_word.innerHTML += "<span id='all_word_ope_input'>" + input_word[i] + "</span>";
+                    }
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/postdata',
+                    data: fData ,
+                    contentType: false,
+                    processData: false,
+                    success: function(data, dataType) {
+                        //通信成功 [200 OK 時]
+                        console.log('Success');
+                        var result = JSON.parse(data.ResultSet);
+                        console.log(result)
+
+                        // answer枠組みを表示
+                        document.getElementById('answer').style.display="block";
+                        // "なぜ文字の計算ができる"リンクの表示
+                        document.getElementById('why_box').style.display="block";
+
+                        for(var i=0; i<result.length; i++){
+                            document.getElementById('answer').innerHTML += 
+                            "<div>" + 
+                                "<span class='col-1'>" + result[i][0] + "</span>" +
+                                "<span class='col-2'>" + "(" + result[i][1] + ")" + "</span>" +
+                            "</div>";
+                        }
+                        // $("#answer").text(result);
+                        document.getElementById('kekka_wait').innerHTML = "";
+                        document.getElementById('kekka_wait').style.display="none";
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        //通信失敗
+                        console.log('Error');
+                    }
+                });
+            }
+        }
+
+        // 一文字削除する
+        function oneCharDel(){
+            var input_word = document.getElementById('input_box').value;
+            var split_input_word = input_word.split(' ');
+            var last_del_word = "";
+            // "a + b" → "a + "
+            for(var i=0; i<split_input_word.length-1; i++){
+                if(i == split_input_word.length-2){
+                    last_del_word += split_input_word[i];
+                }else{
+                    last_del_word += split_input_word[i] + " ";
+                }
+            }
+            document.getElementById('input_box').value = last_del_word;
+        }
+
+        // 入力時にエンターキーでEqual関数を呼び出す
+        function goEqual(){
+            if(window.event.keyCode==13){
+                Equal(1);
+            }
+        }
+    </script>
+
+    <div id="center_body">
+        <h1>< 単語の足し算・引き算 > <a href="/similar">類似単語</a> </h1>
+        
+        <div id="all_word"></div>
+
+        <div id="user_input_box">
+            <input id="input_box" onkeypress="goEqual()">
+            <input type="submit" value="=" name="=" id="equlbtn" onclick="Equal(1)">
+            <input type="button" value="←" name="=" onclick="oneCharDel()">
+        </div>
+
+        <div id="kekka_wait"></div>
+        <div id="answer"></div>
+
+        <div id="why_box">
+            <a href="/why_calc" id="link_to_why_calc">なぜ文字の計算ができる?</a>
+        </div>
+    </div>
+
+</body>
+</html>

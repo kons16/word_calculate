@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>単語の足し算・引き算</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        // = を押す前はanswerの枠組みを非表示にしておく
+        window.onload = function(){
+            document.getElementById('answer').style.display="none";
+            document.getElementById('why_box').style.display="none";
+        }
+
+        // 結果を見るをクリックしたときの関数 
+        function seeKekka(calc_num){
+            var input_word = document.getElementById('input_similar_box').value;
+            document.getElementById('answer').style.display="none";
+            document.getElementById('why_box').style.display="none";
+            document.getElementById('kekka_wait').style.display="block";
+            document.getElementById('kekka_wait').innerHTML = "計算中...";
+            // document.inputform.reset();
+
+            if(calc_num == 1){
+                var fData = new FormData();
+                // 空白の削除
+                fData.append('word', input_word);
+                // 過去の結果の削除
+                document.getElementById('answer').innerHTML = "";
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/postsimilar',
+                    data: fData ,
+                    contentType: false,
+                    processData: false,
+                    success: function(data, dataType) {
+                        //通信成功 [200 OK 時]
+                        console.log('Success');
+                        var result = JSON.parse(data.ResultSet);
+                        console.log(result)
+
+                        // answer枠組みを表示
+                        document.getElementById('answer').style.display="block";
+                        // なぜ文字の計算ができるリンクの表示
+                        document.getElementById('why_box').style.display="block";
+
+                        for(var i=0; i<result.length; i++){
+                            document.getElementById('answer').innerHTML += 
+                            "<div>" + 
+                                "<span class='col-1'>" + result[i][0] + "</span>" +
+                                "<span class='col-2'>" + "(" + result[i][1] + ")" + "</span>" +
+                            "</div>";
+                        }
+                        // $("#answer").text(result);
+                        document.getElementById('kekka_wait').innerHTML = "";
+                        document.getElementById('kekka_wait').style.display="none";
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        //通信失敗
+                        console.log('Error');
+                    }
+                });
+            }
+        }
+
+        // 入力時にエンターキーでseeKekka関数を呼び出す
+        function goSeeKekka(){
+            if(window.event.keyCode==13){
+                seeKekka(1);
+            }
+        }
+    </script>
+
+    <div id="center_body">
+        <h1>< 類似単語の表示 > <a href="/">単語計算</a> </h1>
+
+        <div id="user_input_box">
+            <input id="input_similar_box" onkeypress="goSeeKekka()">
+            <input type="submit" value="結果をみる" name="similarBtn" id="goSimilarBtn" onclick="seeKekka(1)">
+        </div>
+
+        <div id="kekka_wait"></div>
+        <div id="answer"></div>
+
+        <div id="why_box">
+            <a href="/why_calc" id="link_to_why_calc">なぜ文字の計算ができる?</a>
+        </div>
+    </div>
+
+</body>
+</html>
