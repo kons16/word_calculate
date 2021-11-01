@@ -5,7 +5,7 @@ import re
 
 app = Flask(__name__)
 
-# モデルの初期化
+# モデルの読み込み
 model_path = '../entity/word2vec.gensim.model'
 model = Word2Vec.load(model_path)
 
