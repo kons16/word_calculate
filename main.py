@@ -1,7 +1,7 @@
+from typing import Dict
 from flask import Flask, render_template, request, jsonify
 import json
 from gensim.models import Word2Vec
-import re
 
 app = Flask(__name__)
 
@@ -16,20 +16,18 @@ def index():
 
 
 # post_data は単語計算式を POST で受け取り、計算結果を返します
-@app.route("/postdata", methods=["POST"])
+@app.route("/data", methods=["POST"])
 def post_data():
-    if request.method == "POST":
-        sentense = request.form["sentense"]
-        sentense = sentense.split(" ")
-        # print(sentense)     # ['a', '+', 'b', '=', '']
-        sentense.remove('')   # 末尾を削除
-        kekka = calc(sentense)
-        print(kekka)
-        return jsonify(ResultSet=json.dumps(kekka))
+    sentense = request.form["sentense"]
+    sentense = sentense.split(" ")  # ['a', '+', 'b', '=', '']
+    sentense.remove('')   # 末尾を削除
+    kekka = calc(sentense)
+    print(kekka)
+    return jsonify(ResultSet=json.dumps(kekka))
 
 
 # calc は単語の分散表現を獲得し計算を行います
-def calc(word_list):
+def calc(word_list: list) -> Dict[str, float]:
     positive = []
     negative = []
     for i in range(len(word_list)-2):
