@@ -30,7 +30,7 @@
                     document.getElementById('answer').innerHTML = "";
                     // all_wordを単語のみdivで囲む
                     all_word.innerHTML = "";
-                    input_word = input_word.split(" ");     // ["イチロー", "-", "サッカー"]
+                    input_word = input_word.split(" ");
                     for(var i=0; i<input_word.length; i++){
                         if(i % 2 == 0){
                             all_word.innerHTML += "<span id='all_word_input'>" + input_word[i] + "</span>";
@@ -41,7 +41,7 @@
 
                     $.ajax({
                         type: 'POST',
-                        url: '/postdata',
+                        url: '/data',
                         data: fData ,
                         contentType: false,
                         processData: false,
@@ -74,7 +74,7 @@
             }
 
             // 入力時にエンターキーでEqual関数を呼び出す
-            function goEqual(){
+            function toEnter(){
                 if(window.event.keyCode==13){
                     Equal(1);
                 }
@@ -87,7 +87,7 @@
             <div id="all_word"></div>
 
             <div id="user_input_box">
-                <input id="input_box" onkeypress="goEqual()">
+                <input id="input_box" onkeypress="toEnter()">
                 <input type="submit" value="=" name="=" id="equlbtn" onclick="Equal(1)">
             </div>
 

@@ -12,11 +12,11 @@
   margin-left: 10px;
   width: 950px;
   height: 100px;
-  font-family: 'ヒラギノ丸ゴ ProN','Hiragino Maru Gothic ProN',sans-serif;
+  font-family: 'ヒラギノ丸ゴ ProN', 'Hiragino Maru Gothic ProN', sans-serif;
   font-size: 50px;
   font-weight: bold;
   border-radius: 10px;
-  border: solid 3px #52A8B8;
+  border: solid 3px #52a8b8;
 }
 
 #equlbtn {
@@ -41,7 +41,7 @@
   padding: 10px 10px 10px 10px;
   margin: 0 10px 0 10px;
   font-weight: bold;
-  color: #FFF;
+  color: #fff;
   background: #6091d3;
   border: solid 3px #6091d3;
   border-radius: 10px;
@@ -86,43 +86,3 @@
   display: inline-block;
   width: 350px;
 }
-
-
-/* 類似単語の表示ページ */
-#input_similar_box {
-  padding: 0 10px;
-  margin-top: 10px;
-  margin-left: 140px;
-  text-align: center;
-  width: 600px;
-  height: 100px;
-  font-family: 'ヒラギノ丸ゴ ProN','Hiragino Maru Gothic ProN',sans-serif;
-  font-size: 50px;
-  font-weight: bold;
-  border-radius: 10px;
-  border: solid 3px #52A8B8; 
-}
-
-#goSimilarBtn {
-  margin-top: 40px;
-  margin-left: 20px;
-  width: 200px;
-  height: 50px;
-  border-radius: 10px;
-  background: blue;
-  color: #fff;
-  font-weight: bold;
-  font-size: 30px;
-  border: none; 
-}
-
-#link_to_why_calc{
-  color: orange;
-}
-
-
-/* 単語計算説明ページ */
-#why_calc_body {
-  background-color: #DCECF3;
-}
-

@@ -9,6 +9,7 @@ app = Flask(__name__)
 model_path = '../entity/word2vec.gensim.model'
 model = Word2Vec.load(model_path)
 
+
 # index はトップページを表示します
 @app.route("/", methods=["GET"])
 def index():
@@ -18,21 +19,22 @@ def index():
 # post_data は単語計算式を POST で受け取り、計算結果を返します
 @app.route("/data", methods=["POST"])
 def post_data():
-    sentense = request.form["sentense"]
-    sentense = sentense.split(" ")  # ['a', '+', 'b', '=', '']
-    sentense.remove('')   # 末尾を削除
-    kekka = calc(sentense)
+    sentense = request.form["sentense"]  # "a + b = "
+    sentense_list = sentense.split(" ")  # ['a', '+', 'b', '=', '']
+    sentense_list.remove('')   # 末尾を削除
+    kekka = calc(sentense_list)
     print(kekka)
     return jsonify(ResultSet=json.dumps(kekka))
 
 
 # calc は単語の分散表現を獲得し計算を行います
-def calc(word_list: list) -> Dict[str, float]:
+def calc(word_list):
     positive = []
     negative = []
-    for i in range(len(word_list)-2):
-        if i == 0:
+    for i in range(len(word_list)-3):
+        if i == 0:  # 初回は必ずpositive(+)
             positive.append(word_list[i])
+
         if word_list[i+1] == "-":
             negative.append(word_list[i+2])
         elif word_list[i+1] == "+":
@@ -44,4 +46,3 @@ def calc(word_list: list) -> Dict[str, float]:
 
 if __name__ == '__main__':
     app.run(port=8000, debug=True)
-
